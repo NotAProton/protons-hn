@@ -7,7 +7,7 @@ export default defineConfig({
     short_name: "Proton's hn",
     description:
       'A tasteful, fast modern layer over Hacker News. Faithful to the original, just modern.',
-    homepage_url: 'https://notaproton.github.io/protons-hn/',
+    homepage_url: 'https://notaproton.is-a.dev/protons-hn/',
     permissions: ['storage'],
     browser_specific_settings: {
       gecko: { id: 'protons-hn@notaproton.dev', strict_min_version: '115.0' },

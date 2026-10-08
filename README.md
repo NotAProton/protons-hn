@@ -5,7 +5,7 @@ original, just modern. Inspired by the feel of [Harmonic for Hacker
 News](https://github.com/SimonHalvdansson/Harmonic-HN) and the speed philosophy
 of McMaster-Carr: everything instant, nothing flashy, zero layout shift.
 
-**Download:** https://notaproton.github.io/protons-hn/
+**Download:** https://notaproton.is-a.dev/protons-hn/
 
 ## What it does
 
@@ -90,7 +90,7 @@ pnpm zip:firefox        # store package -> .output/*.zip
 ## Installing
 
 Every push builds and publishes fresh packages to
-[the site](https://notaproton.github.io/protons-hn/) via GitHub Actions.
+[the site](https://notaproton.is-a.dev/protons-hn/) via GitHub Actions.
 
 - **Firefox (temporary load):** `about:debugging#/runtime/this-firefox` →
   "Load Temporary Add-on…" → pick any file in the unzipped
