@@ -1,0 +1,469 @@
+/* ============ Modern HN theme ============ */
+
+/* tokens: exactly four hues in play — text, meta, line, accent */
+:root {
+  --mh-bg-body: #ffffff;
+  --mh-bg-panel: #f6f6ef;
+  --mh-input-bg: #ffffff;
+  --mh-accent: #ff6600;
+  --mh-accent-soft: rgba(255, 102, 0, 0.08);
+  --mh-text: #1a1a1a;
+  --mh-meta: #74746c;
+  --mh-line: #e2e1d4;
+  --mh-votedim: #9a9a94;
+  --mh-new: rgba(255, 102, 0, 0.06);
+  --mh-pad: 12px;
+  --mh-sans: 'Noto Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+:root[data-hn-theme='dark'] {
+  --mh-bg-body: #161616;
+  --mh-bg-panel: #1c1c1c;
+  --mh-input-bg: #242424;
+  --mh-accent: #e06000;
+  --mh-accent-soft: rgba(224, 96, 0, 0.13);
+  --mh-text: #d2d2d2;
+  --mh-meta: #8d8d8d;
+  --mh-line: #333333;
+  --mh-votedim: #9a9a9a;
+  --mh-new: rgba(224, 96, 0, 0.07);
+}
+
+/* ---- page & layout ---- */
+
+html, body {
+  background: var(--mh-bg-body) !important;
+}
+
+#hnmain {
+  background: var(--mh-bg-panel) !important;
+}
+
+body {
+  color: var(--mh-text) !important;
+  font-family: var(--mh-sans) !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  padding: 0 0 32px !important;
+}
+
+#hnmain {
+  width: min(100%, 1000px) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+td, .commtext, .toptext, .yclinks, font, p {
+  font-family: inherit;
+}
+
+/* links: one explicit color, so nothing renders dark-on-dark */
+#hnmain a, #hnmain a:visited, body > a {
+  color: var(--mh-text);
+}
+
+/* ---- header: black on orange, per HN ---- */
+
+#hnmain > tbody > tr:first-child > td {
+  background-color: var(--mh-accent) !important;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.pagetop {
+  font-size: 12px !important;
+  color: #000 !important;
+}
+
+.pagetop a {
+  color: #000 !important;
+  text-decoration: none;
+}
+
+.pagetop a:hover {
+  text-decoration: underline;
+}
+
+b.hnname a {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+#hnn-gear {
+  color: #000 !important;
+  text-decoration: none;
+}
+
+/* ---- story list ---- */
+
+tr.athing.submission > td.title {
+  padding: 4px 0 1px 2px;
+}
+
+tr.athing.submission > td.title .rank {
+  color: var(--mh-meta) !important;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 26px;
+  text-align: right;
+  padding-right: 6px;
+}
+
+tr.athing > td.votelinks {
+  vertical-align: top;
+  padding-top: 1px;
+}
+
+/* titles: own color, not visited-dim, not huge, not bold */
+.titleline a, .titleline a:visited {
+  color: var(--mh-text) !important;
+  font-size: 15px;
+  font-weight: normal;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+
+.titleline a:hover {
+  color: var(--mh-accent) !important;
+}
+
+.sitebit .sitestr {
+  color: var(--mh-meta) !important;
+  font-size: 11px;
+}
+
+td.subtext {
+  padding: 1px 0 2px 0;
+}
+
+.subline, .subline a, .score, .age {
+  font-size: 11px !important;
+  color: var(--mh-meta) !important;
+}
+
+.subline a {
+  text-decoration: none;
+}
+
+.subline a:hover {
+  color: var(--mh-accent) !important;
+}
+
+.score, .age, .subline {
+  font-variant-numeric: tabular-nums;
+}
+
+/* extra row actions: revealed on hover only (meta row is a sibling of the
+   story row, hence the sibling chain) */
+tr.hnn-meta .hnn-extra {
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+tr.athing.submission:hover + tr.hnn-meta .hnn-extra,
+tr.hnn-meta:hover .hnn-extra,
+.hnn-extra:focus-within {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  tr.hnn-meta .hnn-extra {
+    opacity: 1;
+  }
+}
+
+a.morelink {
+  font-size: 12px;
+  color: var(--mh-text) !important;
+  margin-left: var(--mh-pad);
+}
+
+a.morelink:hover {
+  color: var(--mh-accent) !important;
+}
+
+tr.spacer {
+  height: 6px !important;
+}
+
+/* native gif arrows, recolor for dark */
+:root[data-hn-theme='dark'] .votearrow {
+  filter: invert(0.8) brightness(1.3);
+}
+
+/* ---- favicons (grayscale, quiet) ---- */
+
+.hnn-favicon {
+  width: 14px;
+  height: 14px;
+  vertical-align: -2px;
+  margin-right: 4px;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+/* ---- item page / story header ---- */
+
+table.fatitem .titleline a {
+  font-size: 16px;
+}
+
+.toptext {
+  color: var(--mh-text) !important;
+  font-size: 13px;
+  max-width: 75ch;
+}
+
+/* one inset everywhere */
+table.fatitem,
+.hnn-threadbar,
+.comtr > td > table > tbody > tr > td:last-child {
+  padding-left: var(--mh-pad);
+}
+
+/* native forgotten controls */
+input[type='submit'] {
+  background: var(--mh-input-bg);
+  color: var(--mh-text);
+  border: 1px solid var(--mh-line);
+  padding: 3px 10px;
+  border-radius: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+input[type='submit']:hover {
+  background: var(--mh-accent-soft);
+}
+
+textarea {
+  background: var(--mh-input-bg) !important;
+  color: var(--mh-text) !important;
+  border: 1px solid var(--mh-line) !important;
+  border-radius: 0 !important;
+  padding: 7px 9px !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  width: 100%;
+  max-width: 75ch;
+  margin-top: 4px;
+}
+
+input[type='text'], input[type='password'] {
+  background: var(--mh-input-bg) !important;
+  color: var(--mh-text) !important;
+  border: 1px solid var(--mh-line) !important;
+  border-radius: 0 !important;
+  padding: 4px 7px !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+}
+
+textarea:focus, input:focus {
+  outline: none !important;
+  border-color: var(--mh-accent) !important;
+}
+
+/* thread tools, aligned with the first comment's text column */
+.hnn-threadbar {
+  font-size: 11px;
+  color: var(--mh-meta);
+  padding: 8px 0 3px 40px;
+}
+
+/* ---- comments ---- */
+
+.comment {
+  font-size: 13px !important;
+}
+
+.commtext {
+  line-height: 1.45 !important;
+  color: var(--mh-text) !important;
+  max-width: 75ch;
+  padding-left: 2px;
+}
+
+.commtext p {
+  margin: 0.35em 0;
+}
+
+/* meta: one size, one voice */
+.comhead, .comhead a, .navs, .navs a, .reply a {
+  font-size: 11px !important;
+  color: var(--mh-meta) !important;
+}
+
+.comhead a, .navs a, .reply a {
+  text-decoration: none;
+}
+
+.comhead a.hnuser {
+  font-weight: bold;
+}
+
+.comhead a.hnuser:hover,
+.comhead a.togg:hover,
+.navs a:hover,
+.reply a:hover {
+  color: var(--mh-accent) !important;
+}
+
+.reply {
+  margin-top: 2px;
+}
+
+.reply a {
+  text-decoration: none !important;
+}
+
+.reply font, .reply u {
+  text-decoration: none !important;
+  font-size: 11px !important;
+}
+
+/* tighter indentation, guide lines do the work */
+.comtr > td > table > tbody > tr > td.ind {
+  border-right: 1px solid var(--mh-line);
+  padding-right: 3px !important;
+}
+
+/* clear grouping: header close to body, comments apart */
+.comtr > td > table > tbody > tr > td.default {
+  padding-bottom: 10px;
+}
+
+/* new comments */
+.comtr.hnn-new > td {
+  background: var(--mh-new) !important;
+  box-shadow: inset 2px 0 0 var(--mh-accent);
+}
+
+/* ignored users */
+.comtr.hnn-ignored .comhead a.hnuser {
+  color: var(--mh-meta) !important;
+  font-weight: normal;
+  text-decoration: line-through;
+}
+
+.comtr.hnn-ignored .commtext {
+  opacity: 0.5;
+}
+
+/* jump flash / keyboard focus */
+.comtr.hnn-jumpflash > td,
+tr.athing.hnn-jumpflash > td,
+tr.athing.hnn-focus > td,
+tr.hnn-focus > td {
+  background: var(--mh-accent-soft) !important;
+}
+
+/* ---- footer ---- */
+
+.yclinks, .yclinks a {
+  color: var(--mh-meta) !important;
+  font-size: 11px !important;
+  text-decoration: none;
+}
+
+.yclinks a:hover {
+  color: var(--mh-accent) !important;
+}
+
+#hnmain > tbody > tr:last-child td[bgcolor='#ff6600'] {
+  background-color: var(--mh-accent) !important;
+}
+
+#hnmain form[action*='algolia'] input[type='text'] {
+  vertical-align: 1px;
+}
+
+/* ---- our injected bits ---- */
+
+.hnn-action, .hnn-sep {
+  font-size: 11px;
+  color: var(--mh-meta);
+}
+
+a.hnn-action {
+  color: var(--mh-meta);
+  text-decoration: none;
+}
+
+a.hnn-action:hover {
+  color: var(--mh-accent);
+}
+
+.hnn-note > td {
+  color: var(--mh-meta);
+  font-size: 11px;
+  font-style: italic;
+  padding: 6px 0 6px 26px;
+}
+
+/* ---- user hover cards ---- */
+
+.hnn-usercard {
+  display: none;
+  position: absolute;
+  z-index: 1001;
+  width: 290px;
+  padding: 10px 12px;
+  background: var(--mh-bg-panel);
+  border: 1px solid var(--mh-line);
+  border-radius: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  font-size: 11px;
+  color: var(--mh-meta);
+}
+
+.hnn-usercard[data-open] {
+  display: block;
+}
+
+.hnn-uc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.hnn-uc-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--mh-text) !important;
+  text-decoration: none;
+}
+
+.hnn-uc-name:hover {
+  color: var(--mh-accent) !important;
+}
+
+.hnn-uc-karma {
+  color: var(--mh-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.hnn-uc-created {
+  margin-top: 1px;
+}
+
+.hnn-uc-created:empty {
+  display: none;
+}
+
+.hnn-uc-about {
+  margin-top: 6px;
+  line-height: 1.45;
+  color: var(--mh-text);
+  max-width: 75ch;
+}
+
+.hnn-uc-about:empty {
+  display: none;
+}

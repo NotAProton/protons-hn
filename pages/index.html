@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proton's hn — a tasteful modern layer over Hacker News</title>
+    <meta name="description" content="Faithful to the original, just modern. A fast, lightweight Firefox extension for Hacker News." />
+    <style>
+      :root {
+        --bg: #f6f6ef;
+        --accent: #ff6600;
+        --text: #1a1a1a;
+        --meta: #74746c;
+        --border: #e2e1d4;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1c1c1c;
+          --accent: #e06000;
+          --text: #d2d2d2;
+          --meta: #8d8d8d;
+          --border: #333;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 14px/1.5 'Noto Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        display: flex;
+        justify-content: center;
+      }
+      main { width: min(680px, 100%); padding: 40px 20px 80px; }
+      header {
+        background: var(--accent);
+        color: #000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 10px;
+        margin-bottom: 24px;
+      }
+      .logo {
+        width: 18px; height: 18px;
+        background: #fff; color: var(--accent);
+        font-weight: 800; font-size: 12px;
+        display: grid; place-items: center;
+        border: 1px solid #000;
+      }
+      header strong { font-size: 13px; }
+      header nav { margin-left: auto; font-size: 12px; }
+      header nav a { color: #000; }
+      h1 { font-size: 22px; letter-spacing: -0.01em; margin: 0 0 6px; }
+      .tag { color: var(--meta); font-size: 13px; margin: 0 0 22px; }
+      .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+      .cta a {
+        display: inline-block;
+        background: var(--accent);
+        color: #000;
+        font-weight: 700;
+        font-size: 13px;
+        text-decoration: none;
+        padding: 9px 16px;
+        border: 1px solid var(--accent);
+      }
+      .cta a.ghost {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+        font-weight: 500;
+      }
+      .cta a:hover { filter: brightness(1.06); }
+      h2 {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--meta);
+        margin: 26px 0 8px;
+      }
+      ul { margin: 0; padding-left: 18px; }
+      li { margin: 4px 0; }
+      code {
+        font: 12px ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+        background: color-mix(in srgb, var(--text) 8%, transparent);
+        padding: 1px 5px;
+      }
+      .note {
+        border: 1px solid var(--border);
+        padding: 10px 14px;
+        font-size: 12.5px;
+        color: var(--meta);
+        margin: 22px 0;
+      }
+      footer {
+        margin-top: 40px;
+        border-top: 2px solid var(--accent);
+        padding-top: 10px;
+        font-size: 11px;
+        color: var(--meta);
+      }
+      footer a { color: var(--meta); }
+      .num { font-variant-numeric: tabular-nums; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="logo">Y</div>
+        <strong>Proton's hn</strong>
+        <nav><a href="https://github.com/notaproton/protons-hn">GitHub</a></nav>
+      </header>
+
+      <h1>A tasteful modern layer over Hacker News</h1>
+      <p class="tag">Faithful to the original, just modern. ~35&nbsp;KB, no framework, nothing polled.</p>
+
+      <div class="cta">
+        <a id="dl-firefox" href="downloads/" download>Download for Firefox</a>
+        <a id="dl-chrome" href="downloads/" download>Download for Chrome</a>
+        <a class="ghost" href="https://github.com/notaproton/protons-hn#features">Feature list</a>
+      </div>
+
+      <h2>What it is</h2>
+      <ul>
+        <li>Restyles and augments the <strong>real</strong> news.ycombinator.com — login, voting, commenting all native</li>
+        <li>Light / dark / system theming, black-on-orange, square corners, original density</li>
+        <li>New-comment highlighting, thread jumping, collapse tools, ignore users, domain &amp; keyword blocklists</li>
+        <li>Copy · archive.is · Wayback links on every story; user hover cards; live scores</li>
+        <li>Keyboard nav: <code>j</code>/<code>k</code> move · <code>o</code> comments · <code>l</code> article · <code>v</code> vote · <code>/</code> search</li>
+      </ul>
+
+      <h2>Install (Firefox)</h2>
+      <ul>
+        <li>Download the Firefox zip above and unzip it.</li>
+        <li>Open <code>about:debugging#/runtime/this-firefox</code> → <em>Load Temporary Add-on…</em> → pick <code>manifest.json</code> inside.</li>
+      </ul>
+      <div class="note">
+        Firefox permanently installs only AMO-signed extensions. A persistent
+        one-click install needs an unlisted self-distribution signature — the
+        signed build will appear here when signing is wired up. Until then,
+        temporary loading works for the whole session.
+      </div>
+
+      <footer>
+        Not affiliated with YC or Hacker News. Palette and layout belong to
+        news.ycombinator.com. MIT licensed. <span class="num">v__VERSION__</span>
+      </footer>
+    </main>
+  </body>
+</html>

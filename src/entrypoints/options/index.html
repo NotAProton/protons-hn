@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern HN — Settings</title>
+    <style>
+      :root {
+        --bg: #f6f6ef;
+        --surface: #fdfdf6;
+        --accent: #ff6600;
+        --text: #17171a;
+        --muted: #828282;
+        --border: #e2e1d4;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #191a1e;
+          --surface: #212228;
+          --accent: #ff7a1f;
+          --text: #e4e2dc;
+          --muted: #8f8f89;
+          --border: #2c2d34;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 14px ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        display: flex;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      main {
+        width: min(560px, 100%);
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 4px;
+      }
+      .logo {
+        width: 20px;
+        height: 20px;
+        background: var(--accent);
+        color: #fff;
+        font-weight: 800;
+        font-size: 13px;
+        display: grid;
+        place-items: center;
+        border-radius: 4px;
+      }
+      h1 { font-size: 17px; margin: 0; letter-spacing: -0.01em; }
+      .sub { color: var(--muted); font-size: 12.5px; margin: 0 0 20px; }
+      section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 14px 16px;
+        margin-bottom: 14px;
+      }
+      h2 {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin: 0 0 10px;
+      }
+      label.row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        cursor: pointer;
+      }
+      label.row span.hint { color: var(--muted); font-size: 12px; display: block; }
+      select, textarea {
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 6px 8px;
+        font: inherit;
+        font-size: 13px;
+      }
+      textarea { width: 100%; min-height: 64px; resize: vertical; }
+      .list { margin-top: 8px; }
+      .list label.name {
+        display: block;
+        font-size: 12.5px;
+        color: var(--muted);
+        margin: 10px 0 4px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .saved { color: var(--muted); font-size: 12.5px; opacity: 0; transition: opacity 0.2s; }
+      .saved.show { opacity: 1; }
+      button {
+        background: var(--accent);
+        color: #fff;
+        border: 0;
+        border-radius: 6px;
+        padding: 8px 18px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:hover { filter: brightness(1.06); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="logo">Y</div>
+        <h1>Proton's hn</h1>
+      </header>
+      <p class="sub">A tasteful, fast modern layer over Hacker News.</p>
+
+      <section>
+        <h2>Appearance</h2>
+        <label class="row">
+          <span>Theme</span>
+          <select id="theme">
+            <option value="system">Match system</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </section>
+
+      <section>
+        <h2>Features</h2>
+        <label class="row"><span>Highlight new comments<small class="hint">Remembers what you have read on this device</small></span><input type="checkbox" data-setting="newComments" /></label>
+        <label class="row"><span>Thread tools<small class="hint">Collapse all · expand all · jump between threads</small></span><input type="checkbox" data-setting="collapseTools" /></label>
+        <label class="row"><span>Domain favicons<small class="hint">Grayscale, from the DuckDuckGo favicon service</small></span><input type="checkbox" data-setting="favicons" /></label>
+        <label class="row"><span>User hover cards<small class="hint">Karma and profile preview on username hover</small></span><input type="checkbox" data-setting="hoverCards" /></label>
+        <label class="row"><span>Copy, archive &amp; wayback links</span><input type="checkbox" data-setting="archive" /></label>
+        <label class="row"><span>Live story counts<small class="hint">Refresh score and comment count on item pages</small></span><input type="checkbox" data-setting="liveCounts" /></label>
+        <label class="row"><span>Keyboard navigation<small class="hint">j/k move · o comments · l article · v vote · n next · / search</small></span><input type="checkbox" data-setting="keyboardNav" /></label>
+      </section>
+
+      <section>
+        <h2>Filters</h2>
+        <div class="list">
+          <label class="name">Ignore users (one per line — their comments collapse automatically)</label>
+          <textarea id="ignoreUsers"></textarea>
+          <label class="name">Block domains (one per line)</label>
+          <textarea id="blockDomains"></textarea>
+          <label class="name">Block title keywords (one per line)</label>
+          <textarea id="blockKeywords"></textarea>
+        </div>
+      </section>
+
+      <footer>
+        <span class="saved" id="saved">Saved</span>
+        <button id="save">Save</button>
+      </footer>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
