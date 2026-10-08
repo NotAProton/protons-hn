@@ -10,10 +10,13 @@ export default defineConfig({
     homepage_url: 'https://notaproton.is-a.dev/protons-hn/',
     permissions: ['storage'],
     browser_specific_settings: {
-      gecko: { id: 'protons-hn@notaproton.dev', strict_min_version: '115.0' },
-    },
-    data_collection_permissions: {
-      required: ['none'],
+      gecko: {
+        id: 'protons-hn@notaproton.dev',
+        strict_min_version: '115.0',
+        data_collection_permissions: {
+          required: ['none'],
+        },
+      },
     },
     host_permissions: [
       'https://news.ycombinator.com/*',
