@@ -45,6 +45,11 @@ jobs:
           VERSION=$(node -p "require('./package.json').version")
           sed -i "s/__VERSION__/$VERSION/" site/index.html
           cp .output/*.zip site/downloads/
+          FIREFOX_ZIP=$(basename "$(ls .output/*firefox.zip | head -1)")
+          CHROME_ZIP=$(basename "$(ls .output/*chrome.zip | head -1)")
+          sed -i "s|id=\"dl-firefox\" href=\"downloads/\"|id=\"dl-firefox\" href=\"downloads/$FIREFOX_ZIP\"|" site/index.html
+          sed -i "s|id=\"dl-chrome\" href=\"downloads/\"|id=\"dl-chrome\" href=\"downloads/$CHROME_ZIP\"|" site/index.html
+          grep -o 'downloads/[a-z0-9.-]*\.zip' site/index.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
