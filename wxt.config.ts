@@ -6,7 +6,7 @@ export default defineConfig({
     name: "Proton's hn",
     short_name: "Proton's hn",
     description:
-      'A tasteful, fast modern layer over Hacker News. Faithful to the original, just modern.',
+      "A better Hacker News: dark mode, faster loading, favicons, archive links, user hover cards, comment tools, blocklists and keyboard navigation. Works on the real site, so your login, votes and comments all work!",
     homepage_url: 'https://notaproton.is-a.dev/protons-hn/',
     permissions: ['storage'],
     browser_specific_settings: {
