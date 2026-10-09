@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Proton's hn — a better Hacker News</title>
     <meta name="description" content="Dark mode, faster loading, favicons, archive links, user hover cards, comment tools and more. A Firefox extension for Hacker News." />
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
     <style>
       :root {
         --bg: #f6f6ef;
@@ -42,11 +43,9 @@
         margin-bottom: 24px;
       }
       .logo {
-        width: 18px; height: 18px;
-        background: #fff; color: var(--accent);
-        font-weight: 800; font-size: 12px;
-        display: grid; place-items: center;
-        border: 1px solid #000;
+        width: 22px; height: 22px;
+        display: block;
+        border-radius: 5px;
       }
       header strong { font-size: 13px; }
       header nav { margin-left: auto; font-size: 12px; }
@@ -106,7 +105,7 @@
   <body>
     <main>
       <header>
-        <div class="logo">Y</div>
+        <img class="logo" src="logo.svg" alt="Proton's hn logo" width="22" height="22" />
         <strong>Proton's hn</strong>
         <nav><a href="https://github.com/notaproton/protons-hn">GitHub</a></nav>
       </header>
@@ -115,8 +114,8 @@
       <p class="tag">Dark mode, faster loading, favicons, archive links, user hover cards, comment tools and more. 35 KB, no framework, works on the real site.</p>
 
       <div class="cta">
-        <a id="dl-firefox" href="downloads/" download>Download for Firefox</a>
-        <a id="dl-chrome" href="downloads/" download>Download for Chrome</a>
+        <a id="dl-firefox" href="downloads/protons-hn-latest.xpi" download>One-Click Install for Firefox!</a>
+        <a id="dl-chrome" href="downloads/protons-hn-latest-chrome.zip" download>Download for Chrome</a>
         <a class="ghost" href="https://github.com/notaproton/protons-hn#features">Feature list</a>
       </div>
 

@@ -66,22 +66,27 @@ jobs:
         run: |
           mkdir -p site/downloads
           cp pages/index.html site/index.html
+          cp pages/logo.svg site/logo.svg
           VERSION=$(node -p "require('./package.json').version")
           sed -i "s/__VERSION__/$VERSION/" site/index.html
           cp .output/*.zip site/downloads/
-          FIREFOX_ZIP=$(basename "$(ls .output/*firefox.zip | head -1)")
+
+          # stable URLs that never change between deploys (Pages caches HTML
+          # for up to 10 minutes; a stale page must never 404 on download)
           CHROME_ZIP=$(basename "$(ls .output/*chrome.zip | head -1)")
-          sed -i "s|id=\"dl-chrome\" href=\"downloads/\"|id=\"dl-chrome\" href=\"downloads/$CHROME_ZIP\"|" site/index.html
+          cp ".output/$CHROME_ZIP" site/downloads/protons-hn-latest-chrome.zip
+
           if [ "$SIGN_FAILED" != "1" ] && ls .output/signed/*.xpi 1>/dev/null 2>&1; then
-            XPI=$(basename "$(ls .output/signed/*.xpi | head -1)")
-            cp ".output/signed/$XPI" site/downloads/
-            sed -i "s|id=\"dl-firefox\" href=\"downloads/\"|id=\"dl-firefox\" href=\"downloads/$XPI\"|" site/index.html
+            cp .output/signed/*.xpi site/downloads/protons-hn-latest.xpi
             sed -i "s|__INSTALL_NOTE__|Click the download button and Firefox will offer to install the extension permanently.|" site/index.html
           else
-            sed -i "s|id=\"dl-firefox\" href=\"downloads/\"|id=\"dl-firefox\" href=\"downloads/$FIREFOX_ZIP\"|" site/index.html
+            FIREFOX_ZIP=$(basename "$(ls .output/*firefox.zip | head -1)")
+            cp ".output/$FIREFOX_ZIP" site/downloads/protons-hn-latest.zip
+            sed -i "s|id=\"dl-firefox\" href=\"[^\"]*\"|id=\"dl-firefox\" href=\"downloads/protons-hn-latest.zip\"|" site/index.html
             sed -i "s|__INSTALL_NOTE__|The signed build is unavailable for this version (AMO refuses to sign the same version twice). Unzip the download and load it from about:debugging instead.|" site/index.html
           fi
-          grep -o 'downloads/[a-z0-9.-]*\.\(zip\|xpi\)' site/index.html
+          cp ".output/*chrome.zip" site/downloads/ 2>/dev/null || true
+          grep -oE 'downloads/[a-z0-9.-]*\.(zip|xpi)' site/index.html | sort -u
 
       - uses: actions/upload-pages-artifact@v3
         with:
