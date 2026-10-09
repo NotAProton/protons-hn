@@ -38,6 +38,23 @@ jobs:
       - name: Build Chrome package
         run: pnpm build && pnpm zip
 
+      - name: Sign Firefox build (AMO unlisted)
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          if [ -z "$AMO_JWT_ISSUER" ] || [ -z "$AMO_JWT_SECRET" ]; then
+            echo "AMO secrets not set; publishing unsigned zips only"
+            exit 0
+          fi
+          pnpm exec web-ext sign \
+            --source-dir .output/firefox-mv2 \
+            --channel unlisted \
+            --api-key "$AMO_JWT_ISSUER" \
+            --api-secret "$AMO_JWT_SECRET" \
+            --artifacts-dir .output/signed \
+          || echo "SIGN_FAILED=1" >> "$GITHUB_ENV"
+
       - name: Stage site
         run: |
           mkdir -p site/downloads
@@ -47,9 +64,17 @@ jobs:
           cp .output/*.zip site/downloads/
           FIREFOX_ZIP=$(basename "$(ls .output/*firefox.zip | head -1)")
           CHROME_ZIP=$(basename "$(ls .output/*chrome.zip | head -1)")
-          sed -i "s|id=\"dl-firefox\" href=\"downloads/\"|id=\"dl-firefox\" href=\"downloads/$FIREFOX_ZIP\"|" site/index.html
           sed -i "s|id=\"dl-chrome\" href=\"downloads/\"|id=\"dl-chrome\" href=\"downloads/$CHROME_ZIP\"|" site/index.html
-          grep -o 'downloads/[a-z0-9.-]*\.zip' site/index.html
+          if [ "$SIGN_FAILED" != "1" ] && ls .output/signed/*.xpi 1>/dev/null 2>&1; then
+            XPI=$(basename "$(ls .output/signed/*.xpi | head -1)")
+            cp ".output/signed/$XPI" site/downloads/
+            sed -i "s|id=\"dl-firefox\" href=\"downloads/\"|id=\"dl-firefox\" href=\"downloads/$XPI\"|" site/index.html
+            sed -i "s|__INSTALL_NOTE__|Click the download button and Firefox will offer to install the extension permanently.|" site/index.html
+          else
+            sed -i "s|id=\"dl-firefox\" href=\"downloads/\"|id=\"dl-firefox\" href=\"downloads/$FIREFOX_ZIP\"|" site/index.html
+            sed -i "s|__INSTALL_NOTE__|The signed build is unavailable for this version (AMO refuses to sign the same version twice). Unzip the download and load it from about:debugging instead.|" site/index.html
+          fi
+          grep -o 'downloads/[a-z0-9.-]*\.\(zip\|xpi\)' site/index.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
