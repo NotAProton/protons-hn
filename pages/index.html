@@ -130,15 +130,15 @@
 
       <h2>Install (Firefox)</h2>
       <ul>
-        <li>Download the Firefox zip above and unzip it.</li>
-        <li>Open <code>about:debugging#/runtime/this-firefox</code> → <em>Load Temporary Add-on…</em> → pick <code>manifest.json</code> inside.</li>
+        <li>Click the download button above.</li>
+        <li id="install-note">__INSTALL_NOTE__</li>
+        <li>Prefer tinkering? Open <code>about:debugging#/runtime/this-firefox</code> → <em>Load Temporary Add-on…</em> → pick <code>manifest.json</code> in the unzipped build.</li>
       </ul>
-      <div class="note">
-        Firefox permanently installs only AMO-signed extensions. A persistent
-        one-click install needs an unlisted self-distribution signature — the
-        signed build will appear here when signing is wired up. Until then,
-        temporary loading works for the whole session.
-      </div>
+
+      <h2>Install (Chrome)</h2>
+      <ul>
+        <li>Download the Chrome zip, unzip it, open <code>chrome://extensions</code>, enable Developer mode and click <em>Load unpacked</em>.</li>
+      </ul>
 
       <footer>
         Not affiliated with YC or Hacker News. The colors and layout are theirs.

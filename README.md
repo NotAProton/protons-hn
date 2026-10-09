@@ -43,11 +43,11 @@ Every push builds and publishes packages at
 [notaproton.is-a.dev/protons-hn](https://notaproton.is-a.dev/protons-hn/)
 through GitHub Actions.
 
-- **Firefox, temporary:** open `about:debugging#/runtime/this-firefox`, click
-  "Load Temporary Add-on…", and pick `manifest.json` in the unzipped build.
-  Firefox drops temporary add-ons when it closes.
-- **Firefox, permanent:** needs an AMO signature. An unlisted self-distribution
-  build is planned; the signed `.xpi` will appear on the site when that ships.
+- **Firefox:** download the signed `.xpi` from
+  [the site](https://notaproton.is-a.dev/protons-hn/). It is signed through
+  AMO self-distribution (unlisted), so Firefox offers a one-click permanent
+  install. If signing failed for a release, the page says so and you can load
+  the zip temporarily from `about:debugging` instead.
 - **Chrome:** unzip the chrome build, open `chrome://extensions`, enable
   Developer mode, and click "Load unpacked".
 
