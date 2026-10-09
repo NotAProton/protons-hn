@@ -15,6 +15,7 @@ export default defineConfig({
         strict_min_version: '115.0',
         data_collection_permissions: {
           required: ['none'],
+          optional: ['websiteActivity'],
         },
       },
     },

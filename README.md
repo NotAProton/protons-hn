@@ -48,6 +48,14 @@ with GitHub Actions.
 
 Settings live on the options page (`about:addons`, then Proton's hn, then Preferences) and behind the gear in HN's header.
 
+## Privacy
+
+Proton's hn has no accounts, no analytics and no telemetry. Settings stay in the browser's extension storage.
+
+There is one exception, and it is on by default. Domain favicons load each story's site icon from DuckDuckGo (`icons.duckduckgo.com`). That request sends the domain of every story row you view. To stop it, turn off "Domain favicons" in the settings. Turning it off also removes the icons.
+
+Everything else goes to Hacker News or to Algolia's HN search API, which is what the site already uses.
+
 ## Credits
 
 The idea comes from [Harmonic for Hacker News](https://github.com/SimonHalvdansson/Harmonic-HN) by Simon Halvdansson. It is the best HN client I've used, and this extension tries to borrow what I liked about it. Built with [WXT](https://wxt.dev). The colors and layout belong to [Y Combinator](https://news.ycombinator.com).
