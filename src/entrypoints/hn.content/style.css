@@ -467,3 +467,11 @@ a.hnn-action:hover {
 .hnn-uc-about:empty {
   display: none;
 }
+
+/* User layout options. Defaults match the unset state exactly. */
+html[data-hn-width='narrow'] #hnmain { width: min(100%, 820px) !important; }
+html[data-hn-width='wide'] #hnmain { width: min(100%, 1200px) !important; }
+
+html[data-hn-density='compact'] tr.athing.submission > td.title,
+html[data-hn-density='compact'] tr.athing > td.votelinks { padding-top: 2px !important; padding-bottom: 2px !important; }
+html[data-hn-density='compact'] .comtr > td > table > tbody > tr > td.default { padding-top: 4px !important; padding-bottom: 2px !important; }

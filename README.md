@@ -46,7 +46,7 @@ with GitHub Actions.
 - **Firefox:** the download on the site is signed through AMO's unlisted channel, so Firefox installs it with one click and keeps it across restarts. If signing failed for a given release, the page says so. You can then load the unzipped build from `about:debugging` instead.
 - **Chrome:** unzip the Chrome build, open `chrome://extensions`, turn on Developer mode, and choose "Load unpacked".
 
-Settings live on the options page (`about:addons`, then Proton's hn, then Preferences) and behind the gear in HN's header.
+Settings are grouped into Look, Reading, Lists and Filters. Open them from the gear in HN's header, or from `about:addons` (Proton's hn, then Preferences). Almost everything is optional: theme, page width, row spacing, new tabs, each feature, and the filter lists. Reset restores the defaults.
 
 ## Privacy
 

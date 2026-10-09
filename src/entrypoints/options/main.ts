@@ -1,14 +1,8 @@
-import { loadSettings, saveSettings, type Settings } from '@/utils/settings';
+import { DEFAULT_SETTINGS, loadSettings, saveSettings, type Settings } from '@/utils/settings';
 
-const toggles = [...document.querySelectorAll<HTMLInputElement>('input[data-setting]')].filter(
-  (t) => t.dataset['setting'] !== 'search',
-);
-const theme = document.getElementById('theme') as HTMLSelectElement;
-const textareas: Record<keyof Settings, HTMLTextAreaElement | undefined> = {
-  ignoreUsers: document.getElementById('ignoreUsers') as HTMLTextAreaElement,
-  blockDomains: document.getElementById('blockDomains') as HTMLTextAreaElement,
-  blockKeywords: document.getElementById('blockKeywords') as HTMLTextAreaElement,
-} as never;
+const toggles = [...document.querySelectorAll<HTMLInputElement>('input[data-setting]')];
+const selects = [...document.querySelectorAll<HTMLSelectElement>('select[id]')];
+const lists = ['ignoreUsers', 'blockDomains', 'blockKeywords'] as const;
 const saved = document.getElementById('saved')!;
 
 function fill(settings: Settings): void {
@@ -16,36 +10,49 @@ function fill(settings: Settings): void {
     const key = t.dataset['setting'] as keyof Settings;
     t.checked = settings[key] === true;
   }
-  theme.value = settings.theme;
-  for (const [key, ta] of Object.entries(textareas)) {
-    if (ta) ta.value = (settings[key as keyof Settings] as string[]).join('\n');
+  for (const s of selects) {
+    s.value = String(settings[s.id as keyof Settings]);
+  }
+  for (const key of lists) {
+    const ta = document.getElementById(key) as HTMLTextAreaElement;
+    ta.value = settings[key].join('\n');
   }
 }
 
 function collect(): Settings {
-  const out = { ...DEFAULTS };
+  const out: Settings = { ...DEFAULT_SETTINGS };
   for (const t of toggles) {
-    const key = t.dataset['setting'];
-    if (key && key in out) (out as Record<string, unknown>)[key] = t.checked;
+    const key = t.dataset['setting'] as keyof Settings;
+    (out as unknown as Record<string, boolean>)[key] = t.checked;
   }
-  out.theme = theme.value as Settings['theme'];
-  for (const [key, ta] of Object.entries(textareas)) {
-    if (ta) {
-      out[key as keyof Settings] = ta.value
-        .split('\n')
-        .map((s) => s.trim())
-        .filter(Boolean) as never;
-    }
+  for (const s of selects) {
+    (out as unknown as Record<string, string>)[s.id] = s.value;
+  }
+  for (const key of lists) {
+    const ta = document.getElementById(key) as HTMLTextAreaElement;
+    out[key] = ta.value
+      .split('\n')
+      .map((s) => s.trim())
+      .filter(Boolean);
   }
   return out;
 }
 
-const DEFAULTS = await loadSettings();
-const current = await loadSettings();
-fill(current);
+function flashSaved(): void {
+  saved.classList.add('show');
+  setTimeout(() => saved.classList.remove('show'), 1200);
+}
+
+fill(await loadSettings());
 
 document.getElementById('save')!.addEventListener('click', async () => {
   await saveSettings(collect());
-  saved.classList.add('show');
-  setTimeout(() => saved.classList.remove('show'), 1200);
+  flashSaved();
+});
+
+document.getElementById('reset')!.addEventListener('click', async () => {
+  if (!confirm('Reset every Proton\'s hn setting to its default?')) return;
+  fill({ ...DEFAULT_SETTINGS });
+  await saveSettings({ ...DEFAULT_SETTINGS });
+  flashSaved();
 });

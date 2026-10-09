@@ -35,6 +35,18 @@ function applyTheme(theme: 'light' | 'dark' | 'system'): void {
   mm.addEventListener('change', set);
 }
 
+function applyLayout(settings: Settings): void {
+  document.documentElement.dataset['hnWidth'] = settings.width;
+  document.documentElement.dataset['hnDensity'] = settings.density;
+}
+
+/** Article and comment links open in a new tab. Middle and ctrl click are untouched. */
+function openInNewTab(): void {
+  for (const a of document.querySelectorAll<HTMLAnchorElement>('.titleline a, .subline a[href^="item?id="]')) {
+    a.setAttribute('target', '_blank');
+  }
+}
+
 const SETTINGS_MIRROR = 'mh:settings';
 
 /** Synchronous settings mirror — features boot with zero storage await. */
@@ -102,13 +114,7 @@ function bootDom(settings: Settings): void {
     const restored = restoreSnapshot();
     if (settings.favicons) addFavicons();
 
-    // article + comments links open in new tabs by default
-    for (const a of document.querySelectorAll<HTMLAnchorElement>('.titleline a')) {
-      a.setAttribute('target', '_blank');
-    }
-    for (const a of document.querySelectorAll<HTMLAnchorElement>('.subline a[href^="item?id="]')) {
-      a.setAttribute('target', '_blank');
-    }
+    if (settings.newTab) openInNewTab();
 
     if (settings.archive) addListActions();
     if (restored) patchSnapshot();
@@ -182,6 +188,7 @@ export default defineContentScript({
       const settings = await loadSettings();
       writeSettingsMirror(settings);
       applyTheme(settings.theme);
+      applyLayout(settings);
       try {
         bootNow(settings);
       } catch (e) {

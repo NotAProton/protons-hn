@@ -10,7 +10,7 @@
         --surface: #fdfdf6;
         --accent: #ff6600;
         --text: #17171a;
-        --muted: #828282;
+        --muted: #6b6b66;
         --border: #e2e1d4;
       }
       @media (prefers-color-scheme: dark) {
@@ -19,7 +19,7 @@
           --surface: #212228;
           --accent: #ff7a1f;
           --text: #e4e2dc;
-          --muted: #8f8f89;
+          --muted: #9a9a94;
           --border: #2c2d34;
         }
       }
@@ -31,52 +31,39 @@
         font: 14px ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
         display: flex;
         justify-content: center;
-        padding: 32px 16px;
+        padding: 32px 16px 48px;
       }
-      main {
-        width: min(560px, 100%);
-      }
-      header {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 4px;
-      }
-      .logo {
-        width: 20px;
-        height: 20px;
-        background: var(--accent);
-        color: #fff;
-        font-weight: 800;
-        font-size: 13px;
-        display: grid;
-        place-items: center;
-        border-radius: 4px;
-      }
+      main { width: min(560px, 100%); }
+      header { display: flex; align-items: center; gap: 10px; }
+      .logo { width: 22px; height: 22px; border-radius: 5px; }
       h1 { font-size: 17px; margin: 0; letter-spacing: -0.01em; }
-      .sub { color: var(--muted); font-size: 12.5px; margin: 0 0 20px; }
+      .sub { color: var(--muted); font-size: 12.5px; margin: 6px 0 22px; }
       section {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 8px;
-        padding: 14px 16px;
+        padding: 6px 16px;
         margin-bottom: 14px;
       }
       h2 {
-        font-size: 12px;
+        font-size: 11px;
         text-transform: uppercase;
         letter-spacing: 0.06em;
         color: var(--muted);
-        margin: 0 0 10px;
+        margin: 12px 0 4px;
+        font-weight: 600;
       }
-      label.row {
+      .row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 6px 0;
+        gap: 16px;
+        padding: 9px 0;
+        border-top: 1px solid var(--border);
         cursor: pointer;
       }
-      label.row span.hint { color: var(--muted); font-size: 12px; display: block; }
+      .row:first-of-type { border-top: 0; }
+      .row small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
       select, textarea {
         background: var(--bg);
         color: var(--text);
@@ -86,31 +73,33 @@
         font: inherit;
         font-size: 13px;
       }
-      textarea { width: 100%; min-height: 64px; resize: vertical; }
-      .list { margin-top: 8px; }
-      .list label.name {
-        display: block;
-        font-size: 12.5px;
-        color: var(--muted);
-        margin: 10px 0 4px;
-      }
+      input[type='checkbox'] { width: 16px; height: 16px; flex: none; accent-color: var(--accent); }
+      textarea { width: 100%; min-height: 56px; resize: vertical; margin: 4px 0 12px; }
+      .field { display: block; padding: 9px 0 0; border-top: 1px solid var(--border); }
+      .field:first-of-type { border-top: 0; }
+      .field > span { display: block; }
+      .field small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
       footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 12px;
+        margin-top: 18px;
       }
       .saved { color: var(--muted); font-size: 12.5px; opacity: 0; transition: opacity 0.2s; }
       .saved.show { opacity: 1; }
+      .actions { display: flex; gap: 8px; }
       button {
-        background: var(--accent);
-        color: #fff;
-        border: 0;
         border-radius: 6px;
-        padding: 8px 18px;
+        padding: 8px 16px;
         font: inherit;
         font-weight: 600;
         cursor: pointer;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
       }
+      button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
       button:hover { filter: brightness(1.06); }
     </style>
   </head>
@@ -123,7 +112,7 @@
       <p class="sub">Changes apply the next time you load a Hacker News page. Your login and votes are untouched.</p>
 
       <section>
-        <h2>Appearance</h2>
+        <h2>Look</h2>
         <label class="row">
           <span>Theme</span>
           <select id="theme">
@@ -132,34 +121,64 @@
             <option value="dark">Dark</option>
           </select>
         </label>
+        <label class="row">
+          <span>Page width</span>
+          <select id="width">
+            <option value="narrow">Narrow</option>
+            <option value="default">Default</option>
+            <option value="wide">Wide</option>
+          </select>
+        </label>
+        <label class="row">
+          <span>Row spacing</span>
+          <select id="density">
+            <option value="comfortable">Comfortable</option>
+            <option value="compact">Compact</option>
+          </select>
+        </label>
       </section>
 
       <section>
-        <h2>Features</h2>
-        <label class="row"><span>Mark new comments<small class="hint">Remembers what you have read on this device</small></span><input type="checkbox" data-setting="newComments" /></label>
-        <label class="row"><span>Thread tools<small class="hint">Collapse all, expand all, and jump between threads</small></span><input type="checkbox" data-setting="collapseTools" /></label>
-        <label class="row"><span>Domain favicons<small class="hint">On by default. Loads each story's site icon from DuckDuckGo, which receives the domain of every story row you view. Turn it off to stop those requests.</small></span><input type="checkbox" data-setting="favicons" /></label>
-        <label class="row"><span>User hover cards<small class="hint">Karma and bio when you hover a username</small></span><input type="checkbox" data-setting="hoverCards" /></label>
-        <label class="row"><span>Copy, archive and Wayback links</span><input type="checkbox" data-setting="archive" /></label>
-        <label class="row"><span>Live story counts<small class="hint">Refresh the score and comment count on item pages</small></span><input type="checkbox" data-setting="liveCounts" /></label>
-        <label class="row"><span>Keyboard shortcuts<small class="hint">j and k move, o opens comments, l opens the article, v votes, n goes to the next page, / focuses search</small></span><input type="checkbox" data-setting="keyboardNav" /></label>
+        <h2>Reading</h2>
+        <label class="row"><span>Open links in a new tab<small>Articles and comment counts. Middle-click always works.</small></span><input type="checkbox" data-setting="newTab" /></label>
+        <label class="row"><span>Mark new comments<small>Remembers what you have read on this device</small></span><input type="checkbox" data-setting="newComments" /></label>
+        <label class="row"><span>Thread tools<small>Collapse all, expand all, jump between threads</small></span><input type="checkbox" data-setting="collapseTools" /></label>
+        <label class="row"><span>Live story counts<small>Refresh scores and comment counts on item pages</small></span><input type="checkbox" data-setting="liveCounts" /></label>
+      </section>
+
+      <section>
+        <h2>Lists</h2>
+        <label class="row"><span>Copy, archive and Wayback links<small>Shown on each story row</small></span><input type="checkbox" data-setting="archive" /></label>
+        <label class="row"><span>Domain favicons<small>Loads site icons from DuckDuckGo. It sees the domain of each story you view.</small></span><input type="checkbox" data-setting="favicons" /></label>
+        <label class="row"><span>User hover cards<small>Karma and bio when you hover a username</small></span><input type="checkbox" data-setting="hoverCards" /></label>
+        <label class="row"><span>Keyboard shortcuts<small>j and k move, o comments, l article, v vote, / search</small></span><input type="checkbox" data-setting="keyboardNav" /></label>
       </section>
 
       <section>
         <h2>Filters</h2>
-        <div class="list">
-          <label class="name">Ignore users, one per line. Their comments collapse.</label>
+        <label class="field">
+          <span>Ignore users</span>
+          <small>One username per line. Their comments collapse.</small>
           <textarea id="ignoreUsers"></textarea>
-          <label class="name">Block domains, one per line</label>
+        </label>
+        <label class="field">
+          <span>Hide domains</span>
+          <small>One domain per line, such as example.com</small>
           <textarea id="blockDomains"></textarea>
-          <label class="name">Block title keywords, one per line</label>
+        </label>
+        <label class="field">
+          <span>Hide title keywords</span>
+          <small>One keyword per line. Matching stories are hidden, and HN shows how many.</small>
           <textarea id="blockKeywords"></textarea>
-        </div>
+        </label>
       </section>
 
       <footer>
         <span class="saved" id="saved">Saved</span>
-        <button id="save">Save</button>
+        <div class="actions">
+          <button id="reset" type="button">Reset defaults</button>
+          <button id="save" type="button" class="primary">Save</button>
+        </div>
       </footer>
     </main>
     <script type="module" src="./main.ts"></script>
