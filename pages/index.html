@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Proton's hn — a better Hacker News</title>
+    <title>Proton's hn: a better Hacker News</title>
     <meta name="description" content="Dark mode, faster loading, favicons, archive links, user hover cards, comment tools and more. A Firefox extension for Hacker News." />
     <link rel="icon" type="image/svg+xml" href="logo.svg" />
     <style>
@@ -111,37 +111,38 @@
       </header>
 
       <h1>A better Hacker News</h1>
-      <p class="tag">Dark mode, faster loading, favicons, archive links, user hover cards, comment tools and more. 35 KB, no framework, works on the real site.</p>
+      <p class="tag">Dark mode, faster loading, favicons, archive links and a few other things. The script and styles that load on HN come to about 30 KB, or 13 KB compressed. Your login and votes still work.</p>
 
       <div class="cta">
-        <a id="dl-firefox" href="downloads/protons-hn-latest.xpi">One-Click Install for Firefox!</a>
+        <a id="dl-firefox" href="downloads/protons-hn-latest.xpi">One-click install for Firefox</a>
         <a id="dl-chrome" href="downloads/protons-hn-latest-chrome.zip" download>Download for Chrome</a>
-        <a class="ghost" href="https://github.com/notaproton/protons-hn#features">Feature list</a>
+        <a class="ghost" href="https://github.com/notaproton/protons-hn">Source on GitHub</a>
       </div>
 
-      <h2>What it is</h2>
+      <h2>What you get</h2>
       <ul>
-        <li>Dark, light and system themes in HN's own colors, with the original density kept intact</li>
-        <li>New comments highlighted when you reopen a story, thread tools, ignore users, domain and keyword blocklists</li>
-        <li>Copy · archive.is · Wayback links on every story, user hover cards, live scores</li>
-        <li>Keyboard nav: <code>j</code>/<code>k</code> move · <code>o</code> comments · <code>l</code> article · <code>v</code> vote · <code>/</code> search</li>
+        <li>Light, dark and system themes in HN's own colors, with the same layout</li>
+        <li>New comments marked when you reopen a story</li>
+        <li>Thread tools, ignore users, and blocklists for domains and keywords</li>
+        <li>Copy, archive.is and Wayback links on every story</li>
+        <li>Keyboard shortcuts: <code>j</code> and <code>k</code> to move, <code>o</code> for comments, <code>l</code> for the article</li>
       </ul>
 
-      <h2>Install (Firefox)</h2>
+      <h2>Install on Firefox</h2>
       <ul>
-        <li>Click the download button above.</li>
+        <li>Click the button above.</li>
         <li id="install-note">__INSTALL_NOTE__</li>
-        <li>Prefer tinkering? Open <code>about:debugging#/runtime/this-firefox</code> → <em>Load Temporary Add-on…</em> → pick <code>manifest.json</code> in the unzipped build.</li>
+        <li>To try an unsigned build, open <code>about:debugging#/runtime/this-firefox</code>, choose "Load Temporary Add-on", and pick <code>manifest.json</code> from the unzipped folder.</li>
       </ul>
 
-      <h2>Install (Chrome)</h2>
+      <h2>Install on Chrome</h2>
       <ul>
-        <li>Download the Chrome zip, unzip it, open <code>chrome://extensions</code>, enable Developer mode and click <em>Load unpacked</em>.</li>
+        <li>Unzip the download, open <code>chrome://extensions</code>, turn on Developer mode, and choose "Load unpacked".</li>
       </ul>
 
       <footer>
-        Not affiliated with YC or Hacker News. The colors and layout are theirs.
-        MIT licensed. <span class="num">v__VERSION__</span>
+        Not affiliated with Y Combinator or Hacker News. The colors and layout belong to them.
+        MIT license. Version <span class="num">__VERSION__</span>.
       </footer>
     </main>
   </body>

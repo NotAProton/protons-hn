@@ -1,7 +1,7 @@
 {
   "name": "protons-hn",
   "version": "0.3.0",
-  "description": "A better Hacker News: dark mode, faster loading, favicons, archive links, user hover cards, comment tools, blocklists and keyboard navigation. Works on the real site, so your login, votes and comments all work!",
+  "description": "A better Hacker News with dark mode, faster loading, favicons, archive links and keyboard shortcuts. It runs on the real site, so your login and votes still work.",
   "private": true,
   "type": "module",
   "scripts": {

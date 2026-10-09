@@ -38,7 +38,7 @@ function buildActions(articleUrl: string | null, hnId: string | null, mode: 'lis
       href: `https://archive.ph/newest/${articleUrl}`,
       target: '_blank',
       rel: 'noopener noreferrer',
-      title: 'Open the archive.is version',
+      title: 'Open the archive.is copy',
     }, 'archive'));
 
     extras.append(sep());
@@ -47,7 +47,7 @@ function buildActions(articleUrl: string | null, hnId: string | null, mode: 'lis
       href: `https://web.archive.org/web/2/${articleUrl}`,
       target: '_blank',
       rel: 'noopener noreferrer',
-      title: 'Open the latest Wayback Machine snapshot',
+      title: 'Open the latest Wayback Machine copy',
     }, 'wayback'));
   }
 

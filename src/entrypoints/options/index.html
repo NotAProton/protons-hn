@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modern HN — Settings</title>
+    <title>Proton's hn: settings</title>
     <style>
       :root {
         --bg: #f6f6ef;
@@ -117,10 +117,10 @@
   <body>
     <main>
       <header>
-        <div class="logo">Y</div>
+        <img class="logo" src="/icon/96.png" alt="" width="22" height="22" />
         <h1>Proton's hn</h1>
       </header>
-      <p class="sub">A better Hacker News: dark mode, comment tools, favicons, archive links and more. Your HN login still does everything.</p>
+      <p class="sub">Changes apply the next time you load a Hacker News page. Your login and votes are untouched.</p>
 
       <section>
         <h2>Appearance</h2>
@@ -136,23 +136,23 @@
 
       <section>
         <h2>Features</h2>
-        <label class="row"><span>Highlight new comments<small class="hint">Remembers what you have read on this device</small></span><input type="checkbox" data-setting="newComments" /></label>
-        <label class="row"><span>Thread tools<small class="hint">Collapse all · expand all · jump between threads</small></span><input type="checkbox" data-setting="collapseTools" /></label>
-        <label class="row"><span>Domain favicons<small class="hint">Grayscale, from the DuckDuckGo favicon service</small></span><input type="checkbox" data-setting="favicons" /></label>
-        <label class="row"><span>User hover cards<small class="hint">Karma and profile preview on username hover</small></span><input type="checkbox" data-setting="hoverCards" /></label>
-        <label class="row"><span>Copy, archive &amp; wayback links</span><input type="checkbox" data-setting="archive" /></label>
-        <label class="row"><span>Live story counts<small class="hint">Refresh score and comment count on item pages</small></span><input type="checkbox" data-setting="liveCounts" /></label>
-        <label class="row"><span>Keyboard navigation<small class="hint">j/k move · o comments · l article · v vote · n next · / search</small></span><input type="checkbox" data-setting="keyboardNav" /></label>
+        <label class="row"><span>Mark new comments<small class="hint">Remembers what you have read on this device</small></span><input type="checkbox" data-setting="newComments" /></label>
+        <label class="row"><span>Thread tools<small class="hint">Collapse all, expand all, and jump between threads</small></span><input type="checkbox" data-setting="collapseTools" /></label>
+        <label class="row"><span>Domain favicons<small class="hint">Grayscale icons from the DuckDuckGo favicon service. Turning this off stops those requests.</small></span><input type="checkbox" data-setting="favicons" /></label>
+        <label class="row"><span>User hover cards<small class="hint">Karma and bio when you hover a username</small></span><input type="checkbox" data-setting="hoverCards" /></label>
+        <label class="row"><span>Copy, archive and Wayback links</span><input type="checkbox" data-setting="archive" /></label>
+        <label class="row"><span>Live story counts<small class="hint">Refresh the score and comment count on item pages</small></span><input type="checkbox" data-setting="liveCounts" /></label>
+        <label class="row"><span>Keyboard shortcuts<small class="hint">j and k move, o opens comments, l opens the article, v votes, n goes to the next page, / focuses search</small></span><input type="checkbox" data-setting="keyboardNav" /></label>
       </section>
 
       <section>
         <h2>Filters</h2>
         <div class="list">
-          <label class="name">Ignore users (one per line — their comments collapse automatically)</label>
+          <label class="name">Ignore users, one per line. Their comments collapse.</label>
           <textarea id="ignoreUsers"></textarea>
-          <label class="name">Block domains (one per line)</label>
+          <label class="name">Block domains, one per line</label>
           <textarea id="blockDomains"></textarea>
-          <label class="name">Block title keywords (one per line)</label>
+          <label class="name">Block title keywords, one per line</label>
           <textarea id="blockKeywords"></textarea>
         </div>
       </section>
