@@ -85,7 +85,7 @@ jobs:
             sed -i "s|id=\"dl-firefox\" href=\"[^\"]*\"|id=\"dl-firefox\" href=\"downloads/protons-hn-latest.zip\"|" site/index.html
             sed -i "s|__INSTALL_NOTE__|The signed build is unavailable for this version (AMO refuses to sign the same version twice). Unzip the download and load it from about:debugging instead.|" site/index.html
           fi
-          cp ".output/*chrome.zip" site/downloads/ 2>/dev/null || true
+          cp .output/*chrome.zip site/downloads/ 2>/dev/null || true
           grep -oE 'downloads/[a-z0-9.-]*\.(zip|xpi)' site/index.html | sort -u
 
       - uses: actions/upload-pages-artifact@v3
